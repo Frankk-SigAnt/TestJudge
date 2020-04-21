@@ -26,7 +26,6 @@ public class Lab9Q1Test implements ReflectJudge {
             cls.getConstructor();
             Constructor<?> constructor = cls.getConstructor(int.class, int.class, int.class);
             constructor.setAccessible(true);
-            Object instance = constructor.newInstance(1, 1, 1);
             FieldChecker.Entity[] fieldEntities = {
                     new FieldChecker.Entity(true, false, int.class, "a"),
                     new FieldChecker.Entity(true, false, int.class, "b"),
@@ -36,7 +35,7 @@ public class Lab9Q1Test implements ReflectJudge {
                     new FieldChecker.Entity(true, false, boolean.class, "valid")
             };
             for (FieldChecker.Entity entity : fieldEntities) {
-                FieldChecker.check(cls, instance, entity);
+                FieldChecker.check(cls, entity);
             }
             MethodChecker.Entity[] methodEntities = {
                     new MethodChecker.Entity(false, false, int.class, "getA"),
@@ -52,7 +51,7 @@ public class Lab9Q1Test implements ReflectJudge {
             for (MethodChecker.Entity entity : methodEntities) {
                 MethodChecker.check(cls, entity);
             }
-        } catch (NoSuchMethodException | NoSuchFieldException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch (NoSuchMethodException | NoSuchFieldException e) {
             throw new TestException("Attribute (constructor/field/method) missing.\n");
         }
     }

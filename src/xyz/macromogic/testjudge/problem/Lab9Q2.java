@@ -1,6 +1,6 @@
 package xyz.macromogic.testjudge.problem;
 
-import xyz.macromogic.testjudge.check.Lab9Q2Checker;
+import xyz.macromogic.testjudge.check.PromptChecker;
 import xyz.macromogic.testjudge.reflect.ReflectJudge;
 import xyz.macromogic.testjudge.reflect.test.Lab9Q2Test;
 import xyz.macromogic.testjudge.util.*;
@@ -32,7 +32,7 @@ public class Lab9Q2 extends Problem {
             result.update(compiler.compile(baseDirPath + "ClassRoom.java", baseDirPath + "ClassRoomRuntimeTest.java"));
             Class<?> mainClass = compiler.loadClass("ClassRoomRuntimeTest");
             try {
-                RuntimeJudge runtimeJudge = new RuntimeJudge(mainClass.getMethod("main", String[].class), testCase, new Lab9Q2Checker(), 1);
+                RuntimeJudge runtimeJudge = new RuntimeJudge(mainClass.getMethod("main", String[].class), testCase, new PromptChecker(), 1);
                 result.update(runtimeJudge.runAndJudge());
             } catch (NoSuchMethodException e) {
                 result.update(JudgeResult.Verdict.UNEXPECTED_ERROR, "");

@@ -34,7 +34,7 @@ public class FieldChecker {
         }
     }
 
-    public static void check(Class<?> cls, Object instance, Entity entity) throws NoSuchFieldException {
+    public static void check(Class<?> cls, Entity entity) throws NoSuchFieldException {
         if (entity.isPrivate()) {
             Field field = cls.getDeclaredField(entity.getName());
             field.setAccessible(true);
