@@ -38,6 +38,21 @@ public class MethodChecker {
             this.name = name;
             this.paramTypes = paramTypes;
         }
+
+        @Override
+        public String toString() {
+            StringBuilder params = new StringBuilder();
+            if (paramTypes != null) {
+                for (Class<?> paramCls : paramTypes) {
+                    params.append(paramCls.getName()).append(", ");
+                }
+                params.setLength(params.length() - 2);
+            }
+            return String.format("%s%s%s %s(%s)",
+                    isPrivate ? "private/protected " : "public ",
+                    isStatic ? "static " : "",
+                    returnType.getName(), name, params);
+        }
     }
 
     public static void check(Class<?> cls, Entity entity) throws NoSuchMethodException {
@@ -45,13 +60,13 @@ public class MethodChecker {
             Method method = cls.getDeclaredMethod(entity.getName(), entity.getParamTypes());
             method.setAccessible(true);
             if (!method.getReturnType().equals(entity.getReturnType()) || Modifier.isStatic(method.getModifiers()) != entity.isStatic()) {
-                throw new NoSuchMethodException();
+                throw new NoSuchMethodException(entity.toString());
             }
             method.setAccessible(false);
         } else {
             Method method = cls.getMethod(entity.getName(), entity.getParamTypes());
             if (!method.getReturnType().equals(entity.getReturnType()) || Modifier.isStatic(method.getModifiers()) != entity.isStatic()) {
-                throw new NoSuchMethodException();
+                throw new NoSuchMethodException(entity.toString());
             }
         }
     }

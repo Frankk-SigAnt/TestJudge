@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class TestJudge {
     public static void main(String[] args) {
         setSecurityManager();
-        final String submissionPath = "/Users/macmo/Workspace/SUSTech/CS102B_SA/Exercise for Week 10/";
+        final String submissionPath = "/Users/macmo/Documents/SUSTech/CS102B_SA/Exercise for Week 11/";
         List<StudentInfo> infoList = null;
         try (BufferedReader csvReader = Files.newBufferedReader(Paths.get(submissionPath + "grades.csv"))) {
             infoList = csvReader.lines()
@@ -29,14 +29,14 @@ public class TestJudge {
 
         if (infoList != null && infoList.size() > 0) {
             try (PrintWriter csvWriter = new PrintWriter(submissionPath + "grades.csv")) {
-                csvWriter.println("\"Exercise for Week10\",\"SCORE_GRADE_TYPE\"\n" +
+                csvWriter.println("\"Exercise for Week 11\",\"SCORE_GRADE_TYPE\"\n" +
                         "\"\"\n" +
                         "\"Display ID\",\"ID\",\"Last Name\",\"First Name\",\"grade\",\"Submission date\",\"Late submission\"");
                 for (StudentInfo info : infoList) {
                     int score = 100;
                     String basePath = submissionPath + info.getPath();
                     STDOUT.println(basePath);
-                    Problem[] problems = {new Lab10Q1(), new Lab10Q2(), new Lab10Q3()};
+                    Problem[] problems = {new Lab11()};
                     StringBuilder msg = new StringBuilder("--------\n");
                     for (Problem prob : problems) {
                         String message = prob.judge(basePath + "Submission attachment(s)/");

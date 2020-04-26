@@ -32,6 +32,14 @@ public class FieldChecker {
             this.type = type;
             this.name = name;
         }
+
+        @Override
+        public String toString() {
+            return String.format("%s%s%s %s",
+                    isPrivate ? "private/protected " : "public ",
+                    isStatic ? "static " : "",
+                    type.getName(), name);
+        }
     }
 
     public static void check(Class<?> cls, Entity entity) throws NoSuchFieldException {
@@ -39,19 +47,19 @@ public class FieldChecker {
             Field field = cls.getDeclaredField(entity.getName());
             field.setAccessible(true);
             if (Modifier.isStatic(field.getModifiers()) != entity.isStatic()) {
-                throw new NoSuchFieldException();
+                throw new NoSuchFieldException(entity.toString());
             }
             if (!field.getType().equals(entity.getType())) {
-                throw new NoSuchFieldException();
+                throw new NoSuchFieldException(entity.toString());
             }
             field.setAccessible(false);
         } else {
             Field field = cls.getField(entity.getName());
             if (Modifier.isStatic(field.getModifiers()) != entity.isStatic()) {
-                throw new NoSuchFieldException();
+                throw new NoSuchFieldException(entity.toString());
             }
             if (!field.getType().equals(entity.getType())) {
-                throw new NoSuchFieldException();
+                throw new NoSuchFieldException(entity.toString());
             }
         }
     }
