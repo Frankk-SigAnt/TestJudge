@@ -8,7 +8,7 @@ import xyz.macromogic.testjudge.util.TestException;
 
 import java.lang.reflect.Constructor;
 
-public class Lab11StudentTest implements ReflectJudge {
+public class Lab12Q1Test implements ReflectJudge {
     @Override
     public JudgeResult judge(Class<?> cls) {
         JudgeResult result = new JudgeResult();
@@ -22,30 +22,27 @@ public class Lab11StudentTest implements ReflectJudge {
 
     private void checkAttributes(Class<?> cls) throws TestException {
         try {
-            cls.getConstructor();
-            cls.getConstructor(String.class, int.class, String.class);
+            cls.getConstructor(int.class, int.class, int[][].class);
         } catch (NoSuchMethodException e) {
             throw new TestException("Constructor missing: " + e.getMessage() + "\n");
         }
-        FieldChecker.Entity[] fieldEntities = {
-                new FieldChecker.Entity(true, false, String.class, "classStatus")
-        };
         try {
+            FieldChecker.Entity[] fieldEntities = {
+                    new FieldChecker.Entity(true, false, int.class, "id"),
+                    new FieldChecker.Entity(true, false, int.class, "seats"),
+                    new FieldChecker.Entity(true, false, int[][].class, "arrangement")
+            };
             for (FieldChecker.Entity entity : fieldEntities) {
                 FieldChecker.check(cls, entity);
             }
         } catch (NoSuchFieldException e) {
             throw new TestException("Field missing: " + e.getMessage() + "\n");
         }
-        MethodChecker.Entity[] methodEntities = {
-                new MethodChecker.Entity(false, false, false, String.class, "getClassStatus"),
-                new MethodChecker.Entity(false, false, false, void.class, "setClassStatus", String.class),
-                new MethodChecker.Entity(false, false, false, String.class, "toString"),
-                new MethodChecker.Entity(false, false, false, String.class, "enjoy"),
-                new MethodChecker.Entity(false, false, false, String.class, "enjoy", String.class),
-                new MethodChecker.Entity(false, false, false, String.class, "study")
-        };
         try {
+            MethodChecker.Entity[] methodEntities = {
+                    new MethodChecker.Entity(false, false, false, String.class, "toString"),
+                    new MethodChecker.Entity(false, false, false, boolean.class, "isValidForExam", int.class, int.class, int.class)
+            };
             for (MethodChecker.Entity entity : methodEntities) {
                 MethodChecker.check(cls, entity);
             }

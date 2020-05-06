@@ -37,9 +37,9 @@ public class Lab11StudentAssistantTest implements ReflectJudge {
             throw new TestException("Field missing: " + e.getMessage() + "\n");
         }
         MethodChecker.Entity[] methodEntities = {
-                new MethodChecker.Entity(false, false, String.class, "toString"),
-                new MethodChecker.Entity(false, false, String.class, "enjoy"),
-                new MethodChecker.Entity(false, false, String.class, "work")
+                new MethodChecker.Entity(false, false, false, String.class, "toString"),
+                new MethodChecker.Entity(false, false, false, String.class, "enjoy"),
+                new MethodChecker.Entity(false, false, false, String.class, "work")
         };
         try {
             for (MethodChecker.Entity entity : methodEntities) {

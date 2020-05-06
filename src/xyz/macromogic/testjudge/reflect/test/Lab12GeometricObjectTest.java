@@ -6,9 +6,9 @@ import xyz.macromogic.testjudge.reflect.ReflectJudge;
 import xyz.macromogic.testjudge.util.JudgeResult;
 import xyz.macromogic.testjudge.util.TestException;
 
-import java.lang.reflect.Constructor;
+import java.util.Date;
 
-public class Lab11StudentTest implements ReflectJudge {
+public class Lab12GeometricObjectTest implements ReflectJudge {
     @Override
     public JudgeResult judge(Class<?> cls) {
         JudgeResult result = new JudgeResult();
@@ -22,30 +22,34 @@ public class Lab11StudentTest implements ReflectJudge {
 
     private void checkAttributes(Class<?> cls) throws TestException {
         try {
-            cls.getConstructor();
-            cls.getConstructor(String.class, int.class, String.class);
+            cls.getDeclaredConstructor();
+            cls.getDeclaredConstructor(String.class, boolean.class);
         } catch (NoSuchMethodException e) {
             throw new TestException("Constructor missing: " + e.getMessage() + "\n");
         }
-        FieldChecker.Entity[] fieldEntities = {
-                new FieldChecker.Entity(true, false, String.class, "classStatus")
-        };
         try {
+            FieldChecker.Entity[] fieldEntities = {
+                    new FieldChecker.Entity(true, false, String.class, "color"),
+                    new FieldChecker.Entity(true, false, boolean.class, "filled"),
+                    new FieldChecker.Entity(true, false, Date.class, "dateCreated"),
+            };
             for (FieldChecker.Entity entity : fieldEntities) {
                 FieldChecker.check(cls, entity);
             }
         } catch (NoSuchFieldException e) {
             throw new TestException("Field missing: " + e.getMessage() + "\n");
         }
-        MethodChecker.Entity[] methodEntities = {
-                new MethodChecker.Entity(false, false, false, String.class, "getClassStatus"),
-                new MethodChecker.Entity(false, false, false, void.class, "setClassStatus", String.class),
-                new MethodChecker.Entity(false, false, false, String.class, "toString"),
-                new MethodChecker.Entity(false, false, false, String.class, "enjoy"),
-                new MethodChecker.Entity(false, false, false, String.class, "enjoy", String.class),
-                new MethodChecker.Entity(false, false, false, String.class, "study")
-        };
         try {
+            MethodChecker.Entity[] methodEntities = {
+                    new MethodChecker.Entity(false, false, false, String.class, "getColor"),
+                    new MethodChecker.Entity(false, false, false, void.class, "setColor", String.class),
+                    new MethodChecker.Entity(false, false, false, boolean.class, "isFilled"),
+                    new MethodChecker.Entity(false, false, false, void.class, "setFilled", boolean.class),
+                    new MethodChecker.Entity(false, false, false, Date.class, "getDateCreated"),
+                    new MethodChecker.Entity(false, false, false, String.class, "toString"),
+                    new MethodChecker.Entity(false, false, true, double.class, "getArea"),
+                    new MethodChecker.Entity(false, false, true, double.class, "getPerimeter"),
+            };
             for (MethodChecker.Entity entity : methodEntities) {
                 MethodChecker.check(cls, entity);
             }

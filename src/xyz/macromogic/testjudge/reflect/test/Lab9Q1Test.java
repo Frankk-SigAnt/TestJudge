@@ -38,15 +38,15 @@ public class Lab9Q1Test implements ReflectJudge {
                 FieldChecker.check(cls, entity);
             }
             MethodChecker.Entity[] methodEntities = {
-                    new MethodChecker.Entity(false, false, int.class, "getA"),
-                    new MethodChecker.Entity(false, false, int.class, "getB"),
-                    new MethodChecker.Entity(false, false, int.class, "getC"),
-                    new MethodChecker.Entity(false, false, void.class, "setA", int.class),
-                    new MethodChecker.Entity(false, false, void.class, "setB", int.class),
-                    new MethodChecker.Entity(false, false, void.class, "setC", int.class),
-                    new MethodChecker.Entity(false, false, int.class, "getPerimeter"),
-                    new MethodChecker.Entity(false, false, double.class, "getArea"),
-                    new MethodChecker.Entity(false, false, boolean.class, "isValid"),
+                    new MethodChecker.Entity(false, false, false, int.class, "getA"),
+                    new MethodChecker.Entity(false, false, false, int.class, "getB"),
+                    new MethodChecker.Entity(false, false, false, int.class, "getC"),
+                    new MethodChecker.Entity(false, false, false, void.class, "setA", int.class),
+                    new MethodChecker.Entity(false, false, false, void.class, "setB", int.class),
+                    new MethodChecker.Entity(false, false, false, void.class, "setC", int.class),
+                    new MethodChecker.Entity(false, false, false, int.class, "getPerimeter"),
+                    new MethodChecker.Entity(false, false, false, double.class, "getArea"),
+                    new MethodChecker.Entity(false, false, false, boolean.class, "isValid"),
             };
             for (MethodChecker.Entity entity : methodEntities) {
                 MethodChecker.check(cls, entity);

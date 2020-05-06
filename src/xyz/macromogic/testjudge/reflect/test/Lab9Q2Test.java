@@ -34,8 +34,8 @@ public class Lab9Q2Test implements ReflectJudge {
                 FieldChecker.check(cls, entity);
             }
             MethodChecker.Entity[] methodEntities = {
-                    new MethodChecker.Entity(false, false, void.class, "printValidForExam", int.class, int.class, int.class),
-                    new MethodChecker.Entity(false, false, void.class, "printClassRoom"),
+                    new MethodChecker.Entity(false, false, false, void.class, "printValidForExam", int.class, int.class, int.class),
+                    new MethodChecker.Entity(false, false, false, void.class, "printClassRoom"),
             };
             for (MethodChecker.Entity entity : methodEntities) {
                 MethodChecker.check(cls, entity);

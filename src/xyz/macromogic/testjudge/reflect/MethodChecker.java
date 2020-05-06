@@ -7,6 +7,7 @@ public class MethodChecker {
     public static class Entity {
         private boolean isPrivate;
         private boolean isStatic;
+        private boolean isAbstract;
         private Class<?> returnType;
         private String name;
         private Class<?>[] paramTypes;
@@ -17,6 +18,10 @@ public class MethodChecker {
 
         public boolean isStatic() {
             return isStatic;
+        }
+
+        public boolean isAbstract() {
+            return isAbstract;
         }
 
         public Class<?> getReturnType() {
@@ -31,9 +36,11 @@ public class MethodChecker {
             return paramTypes;
         }
 
-        public Entity(boolean isPrivate, boolean isStatic, Class<?> returnType, String name, Class<?>... paramTypes) {
+        public Entity(boolean isPrivate, boolean isStatic, boolean isAbstract,
+                      Class<?> returnType, String name, Class<?>... paramTypes) {
             this.isPrivate = isPrivate;
             this.isStatic = isStatic;
+            this.isAbstract = isAbstract;
             this.returnType = returnType;
             this.name = name;
             this.paramTypes = paramTypes;
@@ -48,9 +55,10 @@ public class MethodChecker {
                 }
                 params.setLength(params.length() - 2);
             }
-            return String.format("%s%s%s %s(%s)",
+            return String.format("%s%s%s%s %s(%s)",
                     isPrivate ? "private/protected " : "public ",
                     isStatic ? "static " : "",
+                    isAbstract ? "abstract " : "",
                     returnType.getName(), name, params);
         }
     }
@@ -59,13 +67,17 @@ public class MethodChecker {
         if (entity.isPrivate()) {
             Method method = cls.getDeclaredMethod(entity.getName(), entity.getParamTypes());
             method.setAccessible(true);
-            if (!method.getReturnType().equals(entity.getReturnType()) || Modifier.isStatic(method.getModifiers()) != entity.isStatic()) {
+            if (!method.getReturnType().equals(entity.getReturnType())
+                    || Modifier.isStatic(method.getModifiers()) != entity.isStatic()
+                    || Modifier.isAbstract(method.getModifiers()) != entity.isAbstract()) {
                 throw new NoSuchMethodException(entity.toString());
             }
             method.setAccessible(false);
         } else {
             Method method = cls.getMethod(entity.getName(), entity.getParamTypes());
-            if (!method.getReturnType().equals(entity.getReturnType()) || Modifier.isStatic(method.getModifiers()) != entity.isStatic()) {
+            if (!method.getReturnType().equals(entity.getReturnType())
+                    || Modifier.isStatic(method.getModifiers()) != entity.isStatic()
+                    || Modifier.isAbstract(method.getModifiers()) != entity.isAbstract()) {
                 throw new NoSuchMethodException(entity.toString());
             }
         }

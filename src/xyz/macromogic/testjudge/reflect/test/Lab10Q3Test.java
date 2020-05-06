@@ -34,10 +34,10 @@ public class Lab10Q3Test implements ReflectJudge {
                 FieldChecker.check(cls, entity);
             }
             MethodChecker.Entity[] methodEntities = {
-                    new MethodChecker.Entity(false, false, int.class, "getId"),
-                    new MethodChecker.Entity(false, false, int.class, "getSeatsNumber"),
-                    new MethodChecker.Entity(false, false, int[][].class, "getArrangement"),
-                    new MethodChecker.Entity(false, false, String.class, "toString")
+                    new MethodChecker.Entity(false, false, false, int.class, "getId"),
+                    new MethodChecker.Entity(false, false, false, int.class, "getSeatsNumber"),
+                    new MethodChecker.Entity(false, false, false, int[][].class, "getArrangement"),
+                    new MethodChecker.Entity(false, false, false, String.class, "toString")
             };
             for (MethodChecker.Entity entity : methodEntities) {
                 MethodChecker.check(cls, entity);
